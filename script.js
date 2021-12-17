@@ -4,7 +4,19 @@
 //     cadeau.querySelector("img").style.display = "block";
 //   })
 // })
-// Evenement pour sortir du modal
+// Décompte
+var countDownDate = new Date("Dec 25, 2021").getTime();
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.querySelector("#countdown").innerHTML = "Noël arrive dans " + days + " jours " ;
+  if (distance < 0) {
+    clearInterval(x);
+    document.querySelector("#countdown").innerHTML = "EXPIRED";
+  }
+}, 1000);
+// Evenement pour associer les cases aux jours du mois.
 var currentDate = new Date();
 var jour = currentDate.getDate();
 
@@ -17,9 +29,11 @@ jours.forEach(element =>{
       element.classList.add("error");
       return;
     }
+    // Création d'une modal avec confettis
     element.classList.toggle("modalshow");
     initConfetti();
     document.querySelector("#canvas").classList.toggle("show");
+    // Miniature de l'image
     if(element.querySelector(".box > img") == null){
     let img = document.createElement("img");
     img.setAttribute("src", element.querySelector(".modal img").getAttribute("src"));
